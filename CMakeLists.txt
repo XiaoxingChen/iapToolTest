@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+PROJECT(iaptooltest)
+AUX_SOURCE_DIRECTORY(. SRC_LIST)
+SET(CMAKE_CXX_COMPILER g++)
+SET(CMAKE_C_COMPILER g++)
+ADD_EXECUTABLE(iaptooltest ${SRC_LIST})
