@@ -1,7 +1,23 @@
 #include "stmflash.h"
 #include <string.h>
-void init_virtual_flash()
+#include <fstream>
+using namespace std;
+void init_virtual_flash(char* file)
 {
+    ifstream fin("virtual.bin", std::fstream::in | std::fstream::binary);
+    if (!fin)
+    {
+        cout << "bin imagine file open error" << endl;
+        return;
+    }
+
+    fin.seekg(0, std::ios::end);
+    length = fin.tellg();
+    fin.seekg(0, std::ios::beg);
+    std::cout << "length:" << length << std::endl;
+
+    fin.read(virtual_flash, length);
+    fin.close();
     memset(virtual_flash, 0xff, VIRTUAL_FLASH_SIZE);
 }
 

@@ -3,12 +3,24 @@
 #include "st_bootloader_protocol.h"
 #include "printf.h"
 #include <stdlib.h>
+#include <fstream>
+using namespace std;
 
 iapfun jump2app; 
 
 void iap_load_app(uint32_t appxaddr)
 {
 	printf("load to app");
+    ifstream fout("virtual.bin", std::fstream::out | std::fstream::binary);
+    if (!fout)
+    {
+        cout << "bin imagine file open error" << endl;
+        return;
+    }
+    
+    
+    fout.write(virtual_flash, VIRTUAL_FLASH_SIZE);
+    fout.close();
 	exit(0);
 }		 
 

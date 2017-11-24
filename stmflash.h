@@ -9,7 +9,7 @@
 #define BOOT_PARAM_APP	 	0x5555AAAA
 #define BOOT_PARAM_BL			0x2b2b6666
  
-void init_virtual_flash();
+void init_virtual_flash(char* binimag=NULL);
 uint8_t* virtual_flash_addr(uint32_t addr);
 int STMFLASH_write_bytes(uint32_t appxaddr,uint8_t *buf,uint16_t len);
 int STMFLASH_write_bytes_noerase(uint32_t appxaddr,uint8_t *buf,uint16_t len);
