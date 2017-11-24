@@ -2,12 +2,14 @@
 #include "iap.h" 
 #include "st_bootloader_protocol.h"
 #include "printf.h"
+#include <stdlib.h>
 
 iapfun jump2app; 
 
 void iap_load_app(uint32_t appxaddr)
 {
 	printf("load to app");
+	exit(0);
 }		 
 
 /**

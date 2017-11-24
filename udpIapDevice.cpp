@@ -37,7 +37,7 @@ int CUdpIapDevice::open()
 
 	struct timeval timeOut;
 	timeOut.tv_sec = 0;                 //设置5s超时
-	timeOut.tv_usec = 10000;
+	timeOut.tv_usec = 1000;
 	if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeOut, sizeof(timeOut)) < 0)
 	{
 	    printf("time out setting failed\n");

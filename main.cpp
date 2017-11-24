@@ -7,7 +7,7 @@
 #include "stmflash.h"
 
 using namespace std;
-extern const uint8_t FIRMWARE_VERSION = 0x11;
+extern const uint8_t FIRMWARE_VERSION = 0x14;
 int main()
 {
 	cout <<"IAP simulator start!" << endl;
