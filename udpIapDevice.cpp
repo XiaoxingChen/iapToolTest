@@ -19,7 +19,7 @@ int CUdpIapDevice::open()
 {
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(atoi(native_port_));
+    addr.sin_port = htons(native_port_);
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	int sock;
@@ -36,8 +36,8 @@ int CUdpIapDevice::open()
     }
 
 	struct timeval timeOut;
-	timeOut.tv_sec = 5;                 //设置5s超时
-	timeOut.tv_usec = 0;
+	timeOut.tv_sec = 0;                 //设置5s超时
+	timeOut.tv_usec = 10000;
 	if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeOut, sizeof(timeOut)) < 0)
 	{
 	    printf("time out setting failed\n");
@@ -83,7 +83,7 @@ void CUdpIapDevice::runReceiver()
 	uint8_t buff[BUFF_LEN];
     int n;
     int len = sizeof(clientAddr_);
-	n = recvfrom(socket_n_, buff, BUFF_LEN, 0, (struct sockaddr*)&clientAddr_, &len);
+	n = recvfrom(socket_n_, buff, BUFF_LEN, 0, (struct sockaddr*)&clientAddr_, (socklen_t*)&len);
 
 	for(int i = 0; i < n; i++)
 	{
