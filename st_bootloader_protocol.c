@@ -154,9 +154,9 @@ bl_err_t bl_read_memory()
 				return BL_ERR;
 			}
 			iapdev_write_byte(ACK);
-			iap_device.write((const uint8_t*)start_addr, pack_length);
+			iap_device.write(virtual_flash_addr(start_addr), pack_length);
 			//send ACK. This is not mentioned in AN3155 3.4
-			iapdev_write_byte(xor_check_sum((uint8_t*)start_addr, pack_length));
+			iapdev_write_byte(xor_check_sum(virtual_flash_addr(start_addr), pack_length));
 			printf("send %d bytes at address 0x%X\r\n", pack_length, start_addr);
 			exe_tick = 0;
 			return BL_OK;

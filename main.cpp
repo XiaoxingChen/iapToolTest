@@ -4,12 +4,14 @@
 #include "udpIapDevice.h"
 #include <unistd.h>
 #include "iap.h"
+#include "stmflash.h"
 
 using namespace std;
 extern const uint8_t FIRMWARE_VERSION = 0x11;
 int main()
 {
-	cout <<"test start!" << endl;
+	cout <<"IAP simulator start!" << endl;
+    init_virtual_flash();
 	iapDevice.open();
 
 	printf("Firmware virsion: V%d.%d\r\n", FIRMWARE_VERSION>>4, FIRMWARE_VERSION&0xF);
