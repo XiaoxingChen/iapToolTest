@@ -11,15 +11,15 @@ iapfun jump2app;
 void iap_load_app(uint32_t appxaddr)
 {
 	printf("load to app");
-    ifstream fout("virtual.bin", std::fstream::out | std::fstream::binary);
+    ofstream fout("virtual.bin", std::fstream::out | std::fstream::binary);
     if (!fout)
     {
-        cout << "bin imagine file open error" << endl;
+		printf("bin imagine file open error");
         return;
     }
     
     
-    fout.write(virtual_flash, VIRTUAL_FLASH_SIZE);
+    fout.write((const char*)virtual_flash, VIRTUAL_FLASH_SIZE);
     fout.close();
 	exit(0);
 }		 
