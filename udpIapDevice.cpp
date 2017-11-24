@@ -1,22 +1,16 @@
 #include "udpIapDevice.h"
 #include <sys/types.h>
-#include <sys/socket.h>
 #include <pthread.h>
-#include <netinet/in.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 
-CUdpIapDevice iapDevice;
+CUdpIapDevice iapDevice(5000);
 CCharDev& iap_device(iapDevice);
 
-CUdpIapDevice::CUdpIapDevice(uint16_t native_port,
-							uint16_t remote_port,
-							uint8_t* rx_buffer,
-							uint16_t rx_buffer_size)	
+CUdpIapDevice::CUdpIapDevice(uint16_t native_port)	
 :CCharDev(200),
-native_port_(native_port),
-remote_port_(remote_port),
+native_port_(native_port)
 {
 		
 }
@@ -25,7 +19,7 @@ int CUdpIapDevice::open()
 {
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(atoi("5000"));
+    addr.sin_port = htons(atoi(native_port_));
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	int sock;
@@ -61,8 +55,7 @@ int CUdpIapDevice::close()
 
 int CUdpIapDevice::write(const uint8_t* buff, uint32_t len)
 {
-	return sendto(socket_n_, buff, n, 0, (struct sockaddr *)&clientAddr, sizeof(clientAddr));
-
+	return sendto(socket_n_, buff, len, 0, (struct sockaddr *)&clientAddr_, sizeof(clientAddr_));
 }
 
 int CUdpIapDevice::read(uint8_t* buff, uint32_t len)
@@ -88,10 +81,9 @@ void CUdpIapDevice::runReceiver()
 {
 	const uint16_t BUFF_LEN = 300;
 	uint8_t buff[BUFF_LEN];
-	struct sockaddr_in clientAddr;
     int n;
-    int len = sizeof(clientAddr);
-	n = recvfrom(socket_n_, buff, BUFF_LEN, 0, (struct sockaddr*)&clientAddr, &len);
+    int len = sizeof(clientAddr_);
+	n = recvfrom(socket_n_, buff, BUFF_LEN, 0, (struct sockaddr*)&clientAddr_, &len);
 
 	for(int i = 0; i < n; i++)
 	{

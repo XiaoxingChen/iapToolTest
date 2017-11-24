@@ -2,15 +2,14 @@
 #define UDP_IAP_DEVICE_H
 #include "chardev.h"
 #include <vector>
+#include <netinet/in.h>
+#include <sys/socket.h>
 
 class CUdpIapDevice
 	:public CCharDev
 {
 	public:
-		CUdpIapDevice(uint16_t native_port,
-					uint16_t remote_port,
-					uint8_t* rx_buffer,
-					uint16_t rx_buffer_size);	
+		CUdpIapDevice(uint16_t native_port);	
 		virtual int open();
 		virtual int close();
 	
@@ -32,9 +31,9 @@ class CUdpIapDevice
 		std::vector<uint8_t> txBufQue_;
 
 		uint16_t native_port_;
-		uint16_t remote_port_;
 		int socket_n_;
-		uint8_t remote_ip_[4];
+        struct sockaddr_in clientAddr_;
+		
 };
 
 extern CUdpIapDevice iapDevice;
