@@ -12,6 +12,10 @@ uint8_t* virtual_flash_addr(uint32_t addr)
 
 int STMFLASH_write_bytes(uint32_t appxaddr,uint8_t *buf,uint16_t len)
 {
+	for(int i = 0; i < len; i++)
+	{
+		virtual_flash_addr(appxaddr)[0] = buf[i];
+	}
 	return 0;
 }
 
