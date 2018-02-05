@@ -19,12 +19,13 @@
 #include "iap.h"
 #include "stmflash.h"
 #include <stdio.h>
-#include <unistd.h>
+#include <thread>
+#include <chrono>
 
 static uint8_t bl_is_read_protected();
 static uint8_t xor_check_sum(uint8_t* start_addr, uint16_t size);
 uint8_t long_data_buffer[300];
-extern uint8_t FIRMWARE_VERSION;
+extern const uint8_t FIRMWARE_VERSION;
 static uint8_t exe_tick = 0;
 
 /**
@@ -237,7 +238,8 @@ bl_err_t bl_go()
 			//while(!is_printf_idel());
 			while(!iap_device.isTransmitterIdle());
 			//BaseTimer::Instance()->delay_ms(2);
-			usleep(2000);
+        
+            std::this_thread::sleep_for(std::chrono::milliseconds(2));
 			iap_load_app(start_addr);
 			
 			break;//if program goes here, means load app failed.

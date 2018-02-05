@@ -3,12 +3,12 @@
 #include <stdint.h>
 #include <time.h>
 #include <string.h>
+#include <chrono>
 
 static uint32_t getBaseTime()
 {
-	struct timespec ts;
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (ts.tv_sec*1000 + ts.tv_nsec/1000000);
+    uint64_t ts = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	return (uint32_t)ts;
 }
 
 class CCharDev
