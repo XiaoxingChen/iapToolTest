@@ -1,6 +1,3 @@
+cd $(cd "$(dirname "$0")"; pwd)
 cd build
-cmake ..
-make
-./iaptooltest
-cd ..
-
+./iaptooltest_boost
