@@ -7,7 +7,7 @@
 
 static uint32_t getBaseTime()
 {
-    uint64_t ts = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    uint64_t ts = std::chrono::duration_cast<std::chrono::milliseconds>((std::chrono::system_clock::now().time_since_epoch())).count();
 	return (uint32_t)ts;
 }
 
