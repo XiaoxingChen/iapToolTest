@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <thread>
 #include <chrono>
+#include "vflash.h"
 
 static uint8_t bl_is_read_protected();
 static uint8_t xor_check_sum(uint8_t* start_addr, uint16_t size);
@@ -155,9 +156,12 @@ bl_err_t bl_read_memory()
 				return BL_ERR;
 			}
 			iapdev_write_byte(ACK);
-			iap_device.write(virtual_flash_addr(start_addr), pack_length);
+
+			uint8_t tempbuff[300];
+			vflashMemcpy(tempbuff, start_addr, pack_length);
+			iap_device.write(tempbuff, pack_length);
 			//send ACK. This is not mentioned in AN3155 3.4
-			iapdev_write_byte(xor_check_sum(virtual_flash_addr(start_addr), pack_length));
+			iapdev_write_byte(xor_check_sum(tempbuff, pack_length));
 			printf("send %d bytes at address 0x%X\r\n", pack_length, start_addr);
 			exe_tick = 0;
 			return BL_OK;

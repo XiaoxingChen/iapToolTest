@@ -385,3 +385,5 @@ OpenCover/
 *.sln
 
 **/build/
+
+/html/

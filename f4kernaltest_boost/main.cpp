@@ -14,7 +14,7 @@ int main()
 {
 	cout <<"IAP simulator start!" << endl;
     
-    init_virtual_flash();
+    // init_virtual_flash();
     iapDevice.open();
 
     printf("Firmware virsion: V%d.%d\r\n", FIRMWARE_VERSION >> 4, FIRMWARE_VERSION & 0xF);

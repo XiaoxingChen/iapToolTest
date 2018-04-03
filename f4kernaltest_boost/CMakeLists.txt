@@ -25,9 +25,10 @@ AUX_SOURCE_DIRECTORY(. SRC_LIST)
 SET(SRC_LIST ${SRC_LIST} ../iapDevice/boostUdpIapDevice.cpp)
 message(STATUS ${SRC_LIST})
 
-INCLUDE_DIRECTORIES(${IAP_DEV_BOOST_DIR}/include/ ../ ../iapDevice/)
+INCLUDE_DIRECTORIES(${IAP_DEV_BOOST_DIR}/include/ ../ ../iapDevice/ ../virtualflash)
 link_directories(${IAP_DEV_BOOST_DIR}/lib/)
 ADD_SUBDIRECTORY(../ iap)
+ADD_SUBDIRECTORY(../virtualflash/ vflash)
 
 set_source_files_properties( ${SRC_LIST} PROPERTIES LANGUAGE "CXX" )
 
@@ -38,5 +39,5 @@ if(WIN32)
 elseif(UNIX)
     TARGET_LINK_LIBRARIES(iaptooltest_boost libboost_thread.a libboost_system.a)
 endif()
-TARGET_LINK_LIBRARIES(iaptooltest_boost iap)
+TARGET_LINK_LIBRARIES(iaptooltest_boost iap vflash)
 
