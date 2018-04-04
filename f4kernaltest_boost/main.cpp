@@ -6,6 +6,7 @@
 #include "stmflash.h"
 #include <thread>
 #include <chrono>
+#include "vflash.h"
 
 
 using namespace std;
@@ -14,7 +15,7 @@ int main()
 {
 	cout <<"IAP simulator start!" << endl;
     
-    // init_virtual_flash();
+    vflashInit();
     iapDevice.open();
 
     printf("Firmware virsion: V%d.%d\r\n", FIRMWARE_VERSION >> 4, FIRMWARE_VERSION & 0xF);

@@ -142,9 +142,10 @@ uint16_t sectorStdDefToIdx(uint16_t stddef)
 
 uint16_t sectorAddrToIdx(uint32_t addr)
 {
-	for(int i = 0; i < SECTOR_NUM; i++)
+    // printf("sectorAddrToIdx -------------- address = 0x%08X\r\n", addr);
+    for(int i = 0; i < SECTOR_NUM; i++)
 	{
-		if(addr < sectorAddr(i))
+		if(addr < sectorAddr(i + 1))
 			return i;
 	}
 	return SECTOR_NUM - 1;	
